@@ -12,22 +12,27 @@ public class ClienteDAO {
 	private static String table_name = "cliente";
 
 	// METODO QUE INSERTA DATOS DE LOS CLIENTES EN LAS TABLAS MYSQL
-	public static void insertData(Cliente client) {
+	public static void createClient(Cliente client) {
+		
+		MySQLConnection connection = new MySQLConnection();
+		
 		try {
 
 			String Querydb = "USE " + db + ";";
-			Statement stdb = MySQLConnection.getConexion().createStatement();
+			Statement stdb = connection.getConexion().createStatement();
 			stdb.executeUpdate(Querydb);
 
-			String Query = "INSERT INTO Cliente (nombre, apellido, direccion, dni, fecha) Values ('"
+			String Query = "INSERT INTO cliente (nombre, apellido, direccion, dni, fecha) Values ('"
 					+ client.getNombre() + "','" + client.getApellido() + "','" + client.getDireccion() + "','"
 					+ client.getDni() + "','" + client.getFecha() + "');";
-			Statement st = MySQLConnection.getConexion().createStatement();
+			Statement st = connection.getConexion().createStatement();
 			st.executeUpdate(Query);
 
 			System.out.println("Datos almacenados correctamente");
 			;
 			JOptionPane.showMessageDialog(null, "Data inserted!!", "Done", JOptionPane.INFORMATION_MESSAGE);
+			
+			connection.disconnect();
 
 		} catch (SQLException ex) {
 			System.out.println(ex.getMessage());
@@ -41,14 +46,16 @@ public class ClienteDAO {
 
 		Cliente client = new Cliente();
 		boolean exists = false;
+		
+		MySQLConnection connection = new MySQLConnection();
 
 		try {
 			String Querydb = "USE " + db + ";";
-			Statement stdb = MySQLConnection.getConexion().createStatement();
+			Statement stdb = connection.getConexion().createStatement();
 			stdb.executeUpdate(Querydb);
 
 			String Query = "SELECT * FROM " + table_name + " WHERE id = \"" + id + "\"";
-			Statement st = MySQLConnection.getConexion().createStatement();
+			Statement st = connection.getConexion().createStatement();
 			java.sql.ResultSet resultSet;
 			resultSet = st.executeQuery(Query);
 
@@ -71,6 +78,7 @@ public class ClienteDAO {
 				 * "Fecha: " + resultSet.getString("fecha"));
 				 */
 			}
+			connection.disconnect();
 
 		} catch (SQLException ex) {
 			System.out.println(ex.getMessage());
@@ -86,12 +94,14 @@ public class ClienteDAO {
 	}
 
 	// METODO QUE OBTIENE LOS VALORES DE LOCS CLIENTES DE MYSQL
-	public static void modifyClient(Cliente client) {
+	public static void updateClient(Cliente client) {
+		
+		MySQLConnection connection = new MySQLConnection();
 
 		try {
 			//String Querydb = "USE " + db + ";";
 			String query = "UPDATE Client SET nombre = ?, apellido = ? , direccion = ? , dni = ? , fecha = ? WHERE id= ? ";
-			PreparedStatement pstdb = MySQLConnection.getConexion().prepareStatement(query);
+			PreparedStatement pstdb = connection.getConexion().prepareStatement(query);
 			
 			pstdb.setString(1, client.getNombre());
 			pstdb.setString(2, client.getApellido());
@@ -104,6 +114,8 @@ public class ClienteDAO {
 			System.out.println("Query "+query);
 			
 			JOptionPane.showMessageDialog(null, "Client Found!!", "Done", JOptionPane.INFORMATION_MESSAGE);
+			
+			connection.disconnect();
 			
 			//stdb.executeUpdate(Querydb);
 
@@ -141,18 +153,22 @@ public class ClienteDAO {
 
 	// METODO QUE LIMPIA LOS CLIENTES ESPECIFICADOS DE MYSQL
 	public static void deleteRecord(int id) {
+		
+		MySQLConnection connection = new MySQLConnection();
+		
 		try {
 			String Querydb = "USE " + db + ";";
-			Statement stdb = MySQLConnection.getConexion().createStatement();
+			Statement stdb = connection.getConexion().createStatement();
 			stdb.executeUpdate(Querydb);
 
 			String Query = "DELETE FROM " + table_name + " WHERE id = \"" + id + "\"";
-			Statement st = MySQLConnection.getConexion().createStatement();
+			Statement st = connection.getConexion().createStatement();
 			st.executeUpdate(Query);
 
 			System.out.println("Registros de tabla ELIMINADOS con exito!");
 
 			JOptionPane.showMessageDialog(null, "Data deleted!!", "Done", JOptionPane.INFORMATION_MESSAGE);
+			connection.disconnect();
 
 		} catch (SQLException ex) {
 			System.out.println(ex.getMessage());
