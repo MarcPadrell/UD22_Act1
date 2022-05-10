@@ -70,13 +70,6 @@ public class ClienteDAO {
 
 				JOptionPane.showMessageDialog(null, "Client Found!!", "Done", JOptionPane.INFORMATION_MESSAGE);
 
-				/*
-				 * System.out.println(""); System.out.println("Identificador: " +
-				 * resultSet.getString("id") + " " + "Nombre: " + resultSet.getString("nombre")
-				 * + " " + "Apellido:" + resultSet.getString("apellido") + " " + "Dirección: " +
-				 * resultSet.getString("direccion") + "DNI: " + resultSet.getString("dni") +
-				 * "Fecha: " + resultSet.getString("fecha"));
-				 */
 			}
 			connection.disconnect();
 
@@ -94,56 +87,28 @@ public class ClienteDAO {
 	}
 
 	// METODO QUE OBTIENE LOS VALORES DE LOCS CLIENTES DE MYSQL
-	public static void updateClient(Cliente client) {
+	public static void updateClient(int id, Cliente client) {
 		
 		MySQLConnection connection = new MySQLConnection();
 
 		try {
-			//String Querydb = "USE " + db + ";";
-			String query = "UPDATE Client SET nombre = ?, apellido = ? , direccion = ? , dni = ? , fecha = ? WHERE id= ? ";
-			PreparedStatement pstdb = connection.getConexion().prepareStatement(query);
+			String Querydb = "USE " + db + ";";
+			Statement stdb = connection.getConexion().createStatement();
+			stdb.executeUpdate(Querydb);
 			
-			pstdb.setString(1, client.getNombre());
-			pstdb.setString(2, client.getApellido());
-			pstdb.setString(3, client.getDireccion());
-			pstdb.setString(4, client.getDni());
-			pstdb.setString(5, client.getFecha());
-			pstdb.setInt(6, client.getId());
-			
-			pstdb.executeUpdate();
-			System.out.println("Query "+query);
-			
-			JOptionPane.showMessageDialog(null, "Client Found!!", "Done", JOptionPane.INFORMATION_MESSAGE);
-			
-			connection.disconnect();
-			
-			//stdb.executeUpdate(Querydb);
+			String consulta = "UPDATE cliente SET nombre = ?, apellido = ? , direccion = ? , dni = ? , fecha = ? WHERE id = \"" + id + "\"";
+			PreparedStatement estatuto = connection.getConexion().prepareStatement(consulta);
 
+			estatuto.setString(1, client.getNombre());
+			estatuto.setString(2, client.getApellido());
+			estatuto.setString(3, client.getDireccion());
+			estatuto.setString(4, client.getDni());
+			estatuto.setString(5, client.getFecha());
+			estatuto.executeUpdate();
+
+			JOptionPane.showMessageDialog(null, " Modification Done", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
+			System.out.println(consulta);
 			
-			/*Statement st = MySQLConnection.getConexion().createStatement();
-			java.sql.ResultSet resultSet;
-			resultSet = st.executeQuery(Query);*/
-
-			/*while (resultSet.next()) {
-				exists = true;
-				client.setId(Integer.parseInt(resultSet.getString("id")));
-				client.setNombre(resultSet.getString("nombre"));
-				client.setApellido(resultSet.getString("apellido"));
-				client.setDireccion(resultSet.getString("direccion"));
-				client.setDni(resultSet.getString("dni"));
-				client.setFecha(resultSet.getString("fecha"));
-
-				//JOptionPane.showMessageDialog(null, "Client Found!!", "Done", JOptionPane.INFORMATION_MESSAGE);
-
-				/*
-				 * System.out.println(""); System.out.println("Identificador: " +
-				 * resultSet.getString("id") + " " + "Nombre: " + resultSet.getString("nombre")
-				 * + " " + "Apellido:" + resultSet.getString("apellido") + " " + "Dirección: " +
-				 * resultSet.getString("direccion") + "DNI: " + resultSet.getString("dni") +
-				 * "Fecha: " + resultSet.getString("fecha"));
-				 */
-			//}
-
 		} catch (SQLException ex) {
 			System.out.println(ex.getMessage());
 			System.out.println("Error en modificación de datos");

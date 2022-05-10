@@ -22,12 +22,23 @@ public class VistaMain extends JFrame {
 	public JTextField textFieldInsertDni;
 	public JButton btnReadSubmit, btnInsertSave, btnDeleteSubmit;
 	public JSpinner SpinnerDelete, SpinnerRead;
+	public JLabel lblModify;
+	public JSpinner SpinnerModify;
+	public JLabel lblInsertName_1;
+	public JTextField textFieldNameModify;
+	public JLabel lblInsertApellido_1;
+	public JTextField textFieldSurnameModify;
+	public JLabel lblInsertDireccion_1;
+	public JTextField textFieldDirectionModify;
+	public JLabel lblInsertDni_1;
+	public JTextField textFieldDniModify;
+	public JButton btnModifySave;
 
 	/**
 	 * Create the frame.
 	 */
 	public VistaMain() {
-		setBounds(100, 100, 1016, 450);
+		setBounds(100, 100, 1026, 578);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -124,5 +135,59 @@ public class VistaMain extends JFrame {
 		lblDelete.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		lblDelete.setBounds(176, 312, 92, 13);
 		contentPane.add(lblDelete);
+		
+		lblModify = new JLabel("Select the Id:");
+		lblModify.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		lblModify.setBounds(601, 303, 92, 13);
+		contentPane.add(lblModify);
+		
+		SpinnerModify = new JSpinner();
+		SpinnerModify.setModel(new SpinnerNumberModel(new Integer(1), null, null, new Integer(1)));
+		SpinnerModify.setBounds(689, 299, 43, 23);
+		contentPane.add(SpinnerModify);
+		
+		lblInsertName_1 = new JLabel("Name:");
+		lblInsertName_1.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		lblInsertName_1.setBounds(601, 346, 92, 13);
+		contentPane.add(lblInsertName_1);
+		
+		textFieldNameModify = new JTextField();
+		textFieldNameModify.setColumns(10);
+		textFieldNameModify.setBounds(671, 341, 96, 19);
+		contentPane.add(textFieldNameModify);
+		
+		lblInsertApellido_1 = new JLabel("Surname:");
+		lblInsertApellido_1.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		lblInsertApellido_1.setBounds(601, 367, 92, 13);
+		contentPane.add(lblInsertApellido_1);
+		
+		textFieldSurnameModify = new JTextField();
+		textFieldSurnameModify.setColumns(10);
+		textFieldSurnameModify.setBounds(671, 364, 96, 19);
+		contentPane.add(textFieldSurnameModify);
+		
+		lblInsertDireccion_1 = new JLabel("Direccion:");
+		lblInsertDireccion_1.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		lblInsertDireccion_1.setBounds(601, 391, 92, 13);
+		contentPane.add(lblInsertDireccion_1);
+		
+		textFieldDirectionModify = new JTextField();
+		textFieldDirectionModify.setColumns(10);
+		textFieldDirectionModify.setBounds(671, 389, 96, 19);
+		contentPane.add(textFieldDirectionModify);
+		
+		lblInsertDni_1 = new JLabel("Dni:");
+		lblInsertDni_1.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		lblInsertDni_1.setBounds(601, 414, 92, 13);
+		contentPane.add(lblInsertDni_1);
+		
+		textFieldDniModify = new JTextField();
+		textFieldDniModify.setColumns(10);
+		textFieldDniModify.setBounds(671, 412, 96, 19);
+		contentPane.add(textFieldDniModify);
+		
+		btnModifySave = new JButton("Save");
+		btnModifySave.setBounds(671, 441, 96, 25);
+		contentPane.add(btnModifySave);
 	}
 }

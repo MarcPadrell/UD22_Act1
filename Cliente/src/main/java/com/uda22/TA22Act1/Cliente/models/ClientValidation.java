@@ -25,13 +25,14 @@ public class ClientValidation {
 			if (id > 0) {
 
 				Cliente client = ClienteDAO.researchClient(id);
-				
+
 				if (client != null) {
 					return client;
-				}else {
-					JOptionPane.showMessageDialog(null, "Ese usuario no existe", "WARNING", JOptionPane.WARNING_MESSAGE);
+				} else {
+					JOptionPane.showMessageDialog(null, "Ese usuario no existe", "WARNING",
+							JOptionPane.WARNING_MESSAGE);
 				}
-						
+
 			} else {
 
 				JOptionPane.showMessageDialog(null, "ID has to be higher than 0", "FAIL", JOptionPane.WARNING_MESSAGE);
@@ -47,16 +48,16 @@ public class ClientValidation {
 
 	}
 
-	public void validateUpdateClient(Cliente client) {
+	public void validateUpdateClient(int id, Cliente client) {
 
-		if (client.getDni().length() == 8 || client.getId() > 0 || client.getNombre().length() > 1
+		if (id > 0 || client.getDni().length() == 8 || client.getNombre().length() > 1
 				|| client.getApellido().length() > 1) {
 
-			ClienteDAO.updateClient(client);
+			ClienteDAO.updateClient(id, client);
 
 		} else {
 
-			JOptionPane.showMessageDialog(null, "Differents errors with the parametres of the cleint", "FAIL",
+			JOptionPane.showMessageDialog(null, "Differents errors with the parametres of the cleint.", "FAIL",
 					JOptionPane.WARNING_MESSAGE);
 
 		}
