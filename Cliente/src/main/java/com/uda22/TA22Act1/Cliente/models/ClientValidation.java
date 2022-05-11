@@ -18,9 +18,9 @@ public class ClientValidation {
 
 	}
 
-	public Cliente validationReasearchClient(int id) {
+	public Cliente validationReasearchClient(int id) throws Exception{
 
-		try {
+		//try {
 
 			if (id > 0) {
 
@@ -39,11 +39,11 @@ public class ClientValidation {
 
 			}
 
-		} catch (NumberFormatException e) {
+		/*} catch (NumberFormatException e) {
 			System.out.println("Numeric data only accepted " + e.getMessage());
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
-		}
+		}*/
 		return null;
 
 	}

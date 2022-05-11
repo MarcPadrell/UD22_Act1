@@ -12,27 +12,16 @@ import javax.swing.JButton;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.JTextField;
+import javax.swing.JTextArea;
 
 public class VistaMain extends JFrame {
 
 	private JPanel contentPane;
-	public JTextField textFieldInsertNombre;
-	public JTextField textFieldInsertApellido;
-	public JTextField textFieldInsertDireccion;
-	public JTextField textFieldInsertDni;
-	public JButton btnReadSubmit, btnInsertSave, btnDeleteSubmit;
-	public JSpinner SpinnerDelete, SpinnerRead;
-	public JLabel lblModify;
-	public JSpinner SpinnerModify;
-	public JLabel lblInsertName_1;
-	public JTextField textFieldNameModify;
-	public JLabel lblInsertApellido_1;
-	public JTextField textFieldSurnameModify;
-	public JLabel lblInsertDireccion_1;
-	public JTextField textFieldDirectionModify;
-	public JLabel lblInsertDni_1;
-	public JTextField textFieldDniModify;
-	public JButton btnModifySave;
+	public JTextField textFieldInsertNombre, textFieldInsertApellido,textFieldDniModify ,textFieldInsertDireccion, textFieldInsertDni, textFieldNameModify,textFieldDirectionModify ,textFieldSurnameModify;
+	public JButton btnReadSubmit, btnInsertSave, btnDeleteSubmit, btnReadClear, btnModifySave;
+	public JSpinner SpinnerDelete, SpinnerRead, SpinnerModify;
+	public JLabel lblModify, lblInsertName_1, lblInsertApellido_1, lblInsertDireccion_1, lblInsertDni_1;
+	public JTextArea textAreaRead;
 
 	/**
 	 * Create the frame.
@@ -189,5 +178,13 @@ public class VistaMain extends JFrame {
 		btnModifySave = new JButton("Save");
 		btnModifySave.setBounds(671, 441, 96, 25);
 		contentPane.add(btnModifySave);
+		
+		textAreaRead = new JTextArea();
+		textAreaRead.setBounds(94, 144, 410, 45);
+		contentPane.add(textAreaRead);
+		
+		btnReadClear = new JButton("Clear");
+		btnReadClear.setBounds(255, 201, 85, 21);
+		contentPane.add(btnReadClear);
 	}
 }

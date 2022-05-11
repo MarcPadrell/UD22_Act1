@@ -42,14 +42,14 @@ public class ClienteDAO {
 	}
 
 	// METODO QUE OBTIENE LOS VALORES DE LOCS CLIENTES DE MYSQL
-	public static Cliente researchClient(int id) {
+	public static Cliente researchClient(int id) throws Exception{
 
 		Cliente client = new Cliente();
 		boolean exists = false;
 		
 		MySQLConnection connection = new MySQLConnection();
 
-		try {
+		//try {
 			String Querydb = "USE " + db + ";";
 			Statement stdb = connection.getConexion().createStatement();
 			stdb.executeUpdate(Querydb);
@@ -73,10 +73,10 @@ public class ClienteDAO {
 			}
 			connection.disconnect();
 
-		} catch (SQLException ex) {
+		/*} catch (SQLException ex) {
 			System.out.println(ex.getMessage());
 			System.out.println("Error en la adquisicion de datos");
-		}
+		}*/
 
 		if (exists) {
 			return client;

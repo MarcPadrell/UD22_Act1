@@ -15,13 +15,16 @@ public class ControladorCliente implements ActionListener {
 
 	private VistaMain vista;
 	private ClientValidation clientValidation = new ClientValidation();
+	private Cliente client = new Cliente();
 
-	public ControladorCliente(VistaMain vista) {
+	public ControladorCliente(VistaMain vista, Cliente client) {
 		this.vista = vista;
+		this.client = client;
 		this.vista.btnDeleteSubmit.addActionListener(this);
 		this.vista.btnInsertSave.addActionListener(this);
 		this.vista.btnReadSubmit.addActionListener(this);
 		this.vista.btnModifySave.addActionListener(this);
+		this.vista.btnReadClear.addActionListener(this);
 	}
 
 	public void iniciarVista() {
@@ -51,14 +54,12 @@ public class ControladorCliente implements ActionListener {
 
 			try {
 
-				Cliente client = new Cliente();
-
 				// Fecha actual
 				LocalDate localDate = LocalDate.now();
 				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 				String formattedLocalDate = localDate.format(formatter);
 
-				client.setNombre(vista.textFieldInsertNombre.getText());
+				this.client.setNombre(vista.textFieldInsertNombre.getText());
 				client.setApellido(vista.textFieldInsertApellido.getText());
 				client.setDireccion(vista.textFieldInsertDireccion.getText());
 				client.setDni(vista.textFieldInsertDni.getText());
@@ -76,22 +77,22 @@ public class ControladorCliente implements ActionListener {
 
 				int value = (Integer) vista.SpinnerRead.getValue(); // Valor del spinner
 
-				Cliente clientRead = clientValidation.validationReasearchClient(value); // Nos devuelve el cliente con
-																						// el identificador
+				client = clientValidation.validationReasearchClient(value); // Nos devuelve el cliente con
+																			// el identificador
 
-				System.out.println("READ: " + clientRead.toString()); // Mostramos el cliente con sus atributos
+				vista.textAreaRead.setText(client.toString());
 
+				
 			} catch (Exception e) {
-				System.out.println(e.getMessage());
+				vista.textAreaRead.setText(e.getMessage());
+				//System.out.println(e.getMessage());
 			}
 
 		} else if (vista.btnModifySave == evento.getSource()) {
 
 			try {
-				
+
 				System.out.println("Modify");
-				
-				Cliente client = new Cliente();
 
 				// Fecha actual
 				LocalDate localDate = LocalDate.now();
@@ -99,7 +100,7 @@ public class ControladorCliente implements ActionListener {
 				String formattedLocalDate = localDate.format(formatter);
 
 				int value = (Integer) vista.SpinnerModify.getValue(); // Valor del spinner
-				
+
 				client.setNombre(vista.textFieldNameModify.getText());
 				client.setApellido(vista.textFieldSurnameModify.getText());
 				client.setDireccion(vista.textFieldDirectionModify.getText());
@@ -107,12 +108,17 @@ public class ControladorCliente implements ActionListener {
 				client.setFecha(formattedLocalDate.toString());
 
 				clientValidation.validateUpdateClient(value, client); // Nos devuelve el cliente con
-																						// el identificador
-				//System.out.println("READ: " + client.getId().toString()); // Mostramos el cliente con sus atributos
+																		// el identificador
+				// System.out.println("READ: " + client.getId().toString()); // Mostramos el
+				// cliente con sus atributos
 
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
 			}
+
+		}else if (evento.getSource() == vista.btnReadClear) {
+
+			vista.textAreaRead.setText("");
 
 		}
 
